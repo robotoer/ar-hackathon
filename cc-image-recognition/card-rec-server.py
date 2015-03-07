@@ -43,7 +43,8 @@ def process_image():
         im = cv2.imdecode(nparr, cv2.CV_LOAD_IMAGE_COLOR)
 
         cards = filter(lambda card: card != None and card["suit"] != "*" and card["rank"] != "*",
-                       [rec.find_closest_card(training, rec.get_center_card(im))])
+                       #[rec.find_closest_card(training, rec.get_center_card(im))])
+                       [rec.find_closest_card(training, card) for card in rec.get_cards(im, 5)])
         print {"result": cards}
         return jsonify({"result": cards})
     else:

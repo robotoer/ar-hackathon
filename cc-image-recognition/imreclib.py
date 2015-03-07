@@ -98,7 +98,7 @@ def get_center_card(im):
         peri = cv2.arcLength(card, True)
         contour = cv2.approxPolyDP(card, 0.02*peri, True)
 
-        if len(list(contour)) < 4:
+        if len(cont_to_points(contour)) < 4:
             continue
         elif is_internal(center, cont_to_points(contour)):
             approx = rectify(contour[:4])
@@ -130,8 +130,8 @@ def get_cards(im, numcards):
         peri = cv2.arcLength(card, True)
         contour = cv2.approxPolyDP(card, 0.02*peri, True)
 
-        if len(list(contour)) < 4:
-            yield {"image": None, "contour": cont_to_points(contour)}
+        if len(cont_to_points(contour)) < 4:
+            continue
 
         approx = rectify(contour[:4])
 
