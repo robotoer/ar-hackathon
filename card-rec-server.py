@@ -74,9 +74,15 @@ def find_closest_card(training, img):
         return ["*", "*"]
     features1 = preprocess(img)
     features2 = cv2.flip(cv2.transpose(features1), 1)
+    features3 = cv2.flip(cv2.transpose(features2), 1)
+    features4 = cv2.flip(cv2.transpose(features3), 1)
     return sorted(
         training.values(),
-        key = lambda x: min(imgdiff(x[1], features1), imgdiff(x[1], features2)))[0][0]
+        key = lambda x:
+            min(imgdiff(x[1], features1),
+                imgdiff(x[1], features2),
+                imgdiff(x[1], features3),
+                imgdiff(x[1], features4)))[0][0]
 
 
 # Gets the sign of the 3D cross product's z direction for points in 2D space.
