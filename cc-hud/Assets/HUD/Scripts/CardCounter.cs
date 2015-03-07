@@ -24,8 +24,7 @@ namespace CardCounting
 			}
 		}
 
-		private IDictionary<KeyValuePair<CardSuit, CardRank>, int> seenCards = 
-		new Dictionary<KeyValuePair<CardSuit, CardRank>, int> ();
+		private IDictionary<Card, int> seenCards = new Dictionary<Card, int> ();
 
 
 		// -- Overridden methods --
@@ -57,8 +56,7 @@ namespace CardCounting
 		private void updateCount (CardSuit suit, CardRank rank)
 		{
 			// Update the list of seen cards.
-			KeyValuePair<CardSuit, CardRank> seenCard =
-			new KeyValuePair<CardSuit, CardRank> (suit, rank);
+			Card seenCard =	new Card (suit, rank);
 			if (seenCards.ContainsKey (seenCard)) {
 				seenCards [seenCard]++;
 			} else {
@@ -124,7 +122,7 @@ namespace CardCounting
 					Debug.LogError (w.error);
 				} else {
 					Debug.Log ("Finished upload.");
-					List<KeyValuePair<CardSuit, CardRank>> cards = CardUtils.ParseCards (w.text);
+					List<Card> cards = CardUtils.ParseCards (w.text);
 					if (cards.Count > 0) {
 						updateCount (cards [0].Key, cards [0].Value);
 					} else {

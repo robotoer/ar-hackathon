@@ -1,6 +1,7 @@
 //------------------------------------------------------------------------------
 // Utility methods/classes/enums for card counting.
 //------------------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 
@@ -37,6 +38,23 @@ namespace CardCounting
 		Queen = 12,
 		King = 13,
 		Ace = 14
+	}
+
+	/// <summary>
+	/// Card.
+	/// </summary>
+	public struct Card
+	{
+		private CardSuit suit;
+		private CardRank rank;
+
+		public CardSuit Suit { get { return suit; } };
+		public CardRank Rank { get { return rank; } };
+
+		public Card (CardSuit cardSuit, CardRank cardRank) {
+			suit = cardSuit;
+			rank = cardRank;
+		}
 	}
 	
 	/// <summary>
@@ -107,15 +125,15 @@ namespace CardCounting
 		/// </summary>
 		/// <returns>A list of recognized cards.</returns>
 		/// <param name="json">Json representation of a list of recognized cards.</param>
-		public static List<KeyValuePair<CardSuit, CardRank>> ParseJson (string json)
+		public static List<Card> ParseCards (string json)
 		{
 			JSONNode jsonTree = JSON.Parse (json);
 			CardSuit suit = ParseSuit (jsonTree ["suit"].Value);
 			CardRank rank = ParseRank (jsonTree ["rank"].Value);
 			Debug.Log ("Recognized card: " + rank + " of " + suit);
-			List<KeyValuePair<CardSuit, CardRank>> cards = new List<KeyValuePair<CardSuit, CardRank>> ();
+			List<Card> cards = new List<Card> ();
 			if (suit != null && rank != null) {
-				cards.Add (new KeyValuePair<CardSuit, CardRank> (suit, rank));
+				cards.Add (new Card (suit, rank));
 			}
 			return cards;
 		}
