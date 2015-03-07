@@ -21,7 +21,7 @@ def save_image():
 	except KeyError:
 		abort(400)
 	#input = raw_input("Please enter something: ")
-	suit, value = ('C', 10)#process_input(input)
+	suit, value = ('D', 1) # process_input(input)
 	if suit == -1:
 		abort(413)
 
@@ -60,4 +60,4 @@ def process_input(input):
 
 
 if __name__ == '__main__':       
-  	app.run(host='0.0.0.0', port=5050, debug=True)
+  	app.run(host='0.0.0.0', port=5050, debug=True, threaded=True)

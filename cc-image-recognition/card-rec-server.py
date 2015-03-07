@@ -59,7 +59,7 @@ if __name__ == '__main__':
 
         training = rec.get_training(training_labels_filename,training_image_filename,num_training_cards)
 
-        app.run(host='0.0.0.0', debug=True)
+        app.run(host='0.0.0.0', debug=True, threaded=True)
 
     else:
         print __doc__
