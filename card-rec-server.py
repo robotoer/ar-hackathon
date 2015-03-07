@@ -102,14 +102,16 @@ def get_center_card(im, center):
 
     contours, hierarchy = cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 
-    contours = sorted(filter(lambda contour: len(list(contour)) >= 4, contours), key=cv2.contourArea, reverse=True)
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)
     contours = contours[:min(len(contours), 10)]
 
     for card in contours:
         peri = cv2.arcLength(card, True)
         contour = cv2.approxPolyDP(card, 0.02*peri, True)
-
-        if is_internal(center, contour):
+        
+        if len(list(contour)) < 4:
+            continue
+        elif is_internal(center, contour):
             approx = rectify(cv2.approxPolyDP(card,0.02*peri,True)[:4])
 
             h = np.array([ [0,0], [449,0], [449,449], [0,449] ], np.float32)
