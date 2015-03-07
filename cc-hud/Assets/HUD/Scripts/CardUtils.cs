@@ -136,7 +136,7 @@ namespace CardCounting
 		{
 			JSONNode jsonTree = JSON.Parse (json);
 			List<Card> cards = new List<Card> ();
-			foreach (JSONArray node in jsonTree ["result"].AsArray) {
+			foreach (JSONNode node in jsonTree ["result"].AsArray) {
 			    CardSuit suit = ParseSuit (node ["suit"].Value);
 				CardRank rank = ParseRank (node ["rank"].Value);
 				Card card = new Card (suit, rank);

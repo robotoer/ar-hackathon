@@ -58,17 +58,16 @@ namespace CardCounting
 
 
 		// -- Private methods --
-	
+
 		/// <summary>
 		/// Updates the counter with a new seen card.
 		/// </summary>
 		/// <param name="newCards">New registered cards.</param>
 		private void updateCount (HashSet<Card> newCards)
 		{
-			Debug.Log("Updating counter with new cards: " + newCards);
-
 			foreach (Card newCard in newCards)
 			{
+				Debug.Log ("Updating counter with new card: " + newCard);
 				// For now, just update the counter.
 				if (newCard.Rank >= CardRank.Ten) {
 					CurrentCount--;
@@ -128,12 +127,11 @@ namespace CardCounting
 				if (!string.IsNullOrEmpty (w.error)) {
 					Debug.LogError (w.error);
 				} else {
-					Debug.Log ("Finished upload.");
 					List<Card> cards = CardUtils.ParseCards (w.text);
 					if (cards.Count > 0) {
 						updateCount(cardRecognizer.ObserveCards(DateTime.Now, cards));
 					} else {
-						Debug.LogError ("Unrecognized card!");
+						Debug.LogWarning ("No seen cards!");
 					}
 				}
 			} else {
