@@ -79,12 +79,14 @@ def find_closest_card(training, img):
         key = lambda x: min(imgdiff(x[1], features1), imgdiff(x[1], features2)))[0][0]
 
 
-def cross_sign(first, second, point):
-    a = list(first[0])
-    b = list(second[0])
+# Gets the sign of the 3D cross product's z direction for points in 2D space.
+def cross_sign(ref_point, pivot, point):
+    a = list(ref_point[0])
+    b = list(pivot[0])
     return (a[0] - b[0]) * (point[1] - b[1]) - (a[1] - b[1]) * (point[0] - b[0]) >= 0
 
 
+# Tests to see if the given point is internal to the hull created by the contours.
 def is_internal(point, contour):
     c1 = cross_sign(list(contour)[0], list(contour)[1], point)
     c2 = cross_sign(list(contour)[1], list(contour)[2], point)
@@ -92,7 +94,7 @@ def is_internal(point, contour):
     c4 = cross_sign(list(contour)[3], list(contour)[0], point)
     return (c1 and c2 and c3 and c4) or (not c1 and not c2 and not c3 and not c4)
 
-
+# Gets the card in the center if it exists.
 def get_center_card(im, center):
     gray = cv2.cvtColor(im,cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray,(1,1),1000)
@@ -100,7 +102,7 @@ def get_center_card(im, center):
 
     contours, hierarchy = cv2.findContours(thresh,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)
+    contours = sorted(filter(lambda contour: len(list(contour)) >= 4, contours), key=cv2.contourArea, reverse=True)
     contours = contours[:min(len(contours), 10)]
 
     for card in contours:
