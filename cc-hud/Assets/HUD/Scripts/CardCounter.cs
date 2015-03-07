@@ -24,7 +24,7 @@ namespace CardCounting
 			}
 		}
 
-		private IDictionary<Card, int> seenCards = new Dictionary<Card, int> ();
+		private CardRecognizer cardRecognizer = new CardRecognizer();
 
 
 		// -- Overridden methods --
@@ -51,23 +51,19 @@ namespace CardCounting
 		/// <summary>
 		/// Updates the counter with a new seen card.
 		/// </summary>
-		/// <param name="suit">Suit.</param>
-		/// <param name="rank">Rank.</param>
-		private void updateCount (CardSuit suit, CardRank rank)
+		/// <param name="newCards">New registered cards.</param>
+		private void updateCount (HashSet<Card> newCards)
 		{
-			// Update the list of seen cards.
-			Card seenCard =	new Card (suit, rank);
-			if (seenCards.ContainsKey (seenCard)) {
-				seenCards [seenCard]++;
-			} else {
-				seenCards [seenCard] = 1;
-			}
+			Debug.Log("Updating counter with new cards: " + newCards);
 
-			// For now, just update the counter.
-			if (rank >= CardRank.Ten) {
-				CurrentCount--;
-			} else {
-				CurrentCount++;
+			foreach (Card newCard in newCards)
+			{
+				// For now, just update the counter.
+				if (newCard.Rank >= CardRank.Ten) {
+					CurrentCount--;
+				} else {
+					CurrentCount++;
+				}
 			}
 		}
 
@@ -124,7 +120,7 @@ namespace CardCounting
 					Debug.Log ("Finished upload.");
 					List<Card> cards = CardUtils.ParseCards (w.text);
 					if (cards.Count > 0) {
-						updateCount (cards [0].Key, cards [0].Value);
+						updateCount(cardRecognizer.ObserveCards(DateTime.Now, cards));
 					} else {
 						Debug.LogError ("Unrecognized card!");
 					}

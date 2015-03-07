@@ -55,6 +55,11 @@ namespace CardCounting
 			suit = cardSuit;
 			rank = cardRank;
 		}
+
+		public override string ToString ()
+		{
+			return string.Format ("{1} of {0}s", Suit, Rank);
+		}
 	}
 	
 	/// <summary>
