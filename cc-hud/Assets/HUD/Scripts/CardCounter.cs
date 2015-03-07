@@ -37,11 +37,22 @@ namespace CardCounting
 				DeviceTextureSource.Instance.registerTextureDevice (sourceDevice);
 			}
 		}
+
+		private DateTime previousImageCaptureTimestamp = DateTime.Now;
 		
 		void Update ()
 		{
-			if (UnityEngine.Input.GetKeyDown (KeyCode.C)) {
+//			if (UnityEngine.Input.GetKeyDown (KeyCode.C)) {
+//				StartCoroutine (CaptureAndSerializeImage ());
+//			}
+
+			// Capture a new image once a second.
+			DateTime currentTimestamp = DateTime.Now;
+
+			if (currentTimestamp.Subtract(previousImageCaptureTimestamp) >= TimeSpan.FromSeconds(1))
+			{
 				StartCoroutine (CaptureAndSerializeImage ());
+				previousImageCaptureTimestamp = currentTimestamp;
 			}
 		}
 

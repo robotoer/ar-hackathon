@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 using SimpleJSON;
 
+using UnityEngine;
+
 namespace CardCounting
 {
 	/// <summary>
@@ -48,8 +50,8 @@ namespace CardCounting
 		private CardSuit suit;
 		private CardRank rank;
 
-		public CardSuit Suit { get { return suit; } };
-		public CardRank Rank { get { return rank; } };
+		public CardSuit Suit { get { return suit; } }
+		public CardRank Rank { get { return rank; } }
 
 		public Card (CardSuit cardSuit, CardRank cardRank) {
 			suit = cardSuit;
