@@ -3,5 +3,5 @@
 ## Requirements
 
  * OpenCV with python support
- * Flask
+ * Flask (`sudo pip install -U flask`)
 
