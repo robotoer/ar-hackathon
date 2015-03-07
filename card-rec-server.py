@@ -4,7 +4,8 @@
 A flask webapp that does nothing but receive image attachements and returns
 card suit/rank.
 
-Usage information: python card-rec-server.py <training image file> <training labels file>
+Usage:
+python card-rec-server.py <training image file> <training labels file>
 
 API:
 
