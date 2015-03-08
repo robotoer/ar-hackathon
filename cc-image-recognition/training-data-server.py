@@ -21,7 +21,7 @@ def save_image():
 	except KeyError:
 		abort(400)
 	#input = raw_input("Please enter something: ")
-	suit, value = ('D', 1) # process_input(input)
+	suit, value = ('train', 1) # process_input(input)
 	if suit == -1:
 		abort(413)
 
