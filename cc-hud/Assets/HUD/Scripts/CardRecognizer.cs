@@ -22,6 +22,10 @@ namespace CardCounting
 	/// </summary>
 	public class CardRecognizer
 	{
+		// -- Static stuff --
+		private static CardRecognizer instance = new CardRecognizer();
+		public static CardRecognizer Instance { get { return instance; } }
+
 		private HashSet<Card> registeredCards = new HashSet<Card>();
 		private Dictionary<Card, List<DateTime>> seenCards = new Dictionary<Card, List<DateTime>>();
 

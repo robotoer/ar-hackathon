@@ -24,8 +24,6 @@ namespace CardCounting
 			}
 		}
 
-		private CardRecognizer cardRecognizer = new CardRecognizer();
-
 
 		// -- Overridden methods --
 	
@@ -129,7 +127,7 @@ namespace CardCounting
 				} else {
 					List<Card> cards = CardUtils.ParseCards (w.text);
 					if (cards.Count > 0) {
-						updateCount(cardRecognizer.ObserveCards(DateTime.Now, cards));
+						updateCount(CardRecognizer.Instance.ObserveCards(DateTime.Now, cards));
 					} else {
 						Debug.LogWarning ("No seen cards!");
 					}
