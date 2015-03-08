@@ -59,8 +59,15 @@ def find_closest_card(training, card):
             min(imgdiff(x[1], features1),
                 imgdiff(x[1], features2),
                 imgdiff(x[1], features3),
-                imgdiff(x[1], features4)))[0][0]
-    return {"rank": result[0], "suit": result[1], "contour": card["contour"]}
+                imgdiff(x[1], features4)))[0]
+    fit = int(min(imgdiff(result[1], features1),
+              imgdiff(result[1], features2),
+              imgdiff(result[1], features3),
+              imgdiff(result[1], features4))) / 7000
+    if (fit < 100):
+        return {"rank": result[0][0], "suit": result[0][1], "contour": card["contour"], "fit": fit}
+    else:
+        return {"rank": "*", "suit": "*", "contour": None, "fit": fit}
 
 
 # Gets the sign of the 3D cross product's z direction for points in 2D space.

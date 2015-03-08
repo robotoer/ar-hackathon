@@ -44,7 +44,7 @@ def process_image():
 
         cards = filter(lambda card: card != None and card["suit"] != "*" and card["rank"] != "*",
                        #[rec.find_closest_card(training, rec.get_center_card(im))])
-                       [rec.find_closest_card(training, card) for card in rec.get_cards(im, 5)])
+                       [rec.find_closest_card(training, card) for card in rec.get_cards(im, 6)])
         print {"result": cards}
         return jsonify({"result": cards})
     else:
@@ -52,10 +52,10 @@ def process_image():
 
 
 if __name__ == '__main__':
-    if len(sys.argv) >= 3:
+    if len(sys.argv) >= 4:
         training_image_filename = sys.argv[1]
         training_labels_filename = sys.argv[2]
-        num_training_cards = 56
+        num_training_cards = int(sys.argv[3])
 
         training = rec.get_training(training_labels_filename,training_image_filename,num_training_cards)
 

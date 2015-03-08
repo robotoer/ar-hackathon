@@ -20,4 +20,7 @@ print query("test4.jpg")
 print query("test5.jpg")
 print query("test6.jpg")
 print query("test7.jpg")
+print query("train2.png")
+print query("train3.jpg")
+print query("training-images/train/1/1-31.jpg")
 
