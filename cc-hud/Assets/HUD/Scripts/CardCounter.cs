@@ -47,7 +47,7 @@ namespace CardCounting
 			// Capture a new image once a second.
 			DateTime currentTimestamp = DateTime.Now;
 
-			if (currentTimestamp.Subtract(previousImageCaptureTimestamp) >= TimeSpan.FromSeconds(1))
+			if (currentTimestamp.Subtract(previousImageCaptureTimestamp) >= TimeSpan.FromMilliseconds(500))
 			{
 				StartCoroutine (CaptureAndSerializeImage ());
 				previousImageCaptureTimestamp = currentTimestamp;
@@ -113,7 +113,7 @@ namespace CardCounting
 			if (DeviceTextureSource.Instance.IsDeviceTextureRegistered (sourceDevice)) {
 				Texture2D cameraTexture = DeviceTextureSource.Instance.GetDeviceTexture (sourceDevice);
 
-				string url = "http://10.20.8.87:5000/";
+				string url = "http://10.20.8.20:5000/";
 				byte[] jpgEncoded = cameraTexture.EncodeToJPG ();
 			
 				WWWForm form = new WWWForm ();
